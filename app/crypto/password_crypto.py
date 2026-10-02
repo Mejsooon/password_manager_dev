@@ -29,11 +29,7 @@ def encrypt_password(password: str) -> dict[str, str]:
     nonce = os.urandom(12)
     aes = AESGCM(key)
 
-    ciphertext = aes.encrypt(
-        nonce,
-        password.encode("utf-8"),
-        None,
-    )
+    ciphertext = aes.encrypt(nonce, password.encode("utf-8"),None,)
 
     return {
         "nonce": base64.b64encode(nonce).decode("ascii"),
@@ -57,11 +53,7 @@ def decrypt_password(nonce_text: str, ciphertext_text: str) -> str:
     try:
         aes = AESGCM(key)
 
-        plaintext = aes.decrypt(
-            nonce,
-            ciphertext,
-            None,
-        )
+        plaintext = aes.decrypt(nonce, ciphertext,None)
 
         return plaintext.decode("utf-8")
 

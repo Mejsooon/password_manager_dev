@@ -22,27 +22,17 @@ def create_password(current_user: User, password_data: PasswordCreate) -> Passwo
 
 
 def get_passwords(current_user: User) -> list[Password]:
-    return password_repository.find_all_by_user_id(
-        user_id=current_user.id,
-    )
+    return password_repository.find_all_by_user_id(user_id=current_user.id)
 
 
-def get_password(
-    current_user: User,
-    password_id: int,
-) -> DecryptedPassword:
-    password = password_repository.find_by_id(
-        password_id=password_id,
-        user_id=current_user.id,
-    )
+def get_password(current_user: User, password_id: int) -> DecryptedPassword:
+
+    password = password_repository.find_by_id(password_id=password_id, user_id=current_user.id)
 
     if password is None:
         raise PasswordNotFoundError()
 
-    decrypted_password = decrypt_password(
-        password.nonce,
-        password.ciphertext,
-    )
+    decrypted_password = decrypt_password(password.nonce, password.ciphertext)
 
     return DecryptedPassword(
         id=password.id,
