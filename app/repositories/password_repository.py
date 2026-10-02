@@ -44,3 +44,17 @@ def save(password: Password) -> Password:
         ciphertext=password.ciphertext,
         created_at=password.created_at,
     )
+
+def update(password: Password) -> Password:
+    execute("UPDATE passwords SET name = %s, username = %s, nonce = %s, ciphertext = %s WHERE id = %s AND user_id = %s",
+        (
+            password.name,
+            password.username,
+            password.nonce,
+            password.ciphertext,
+            password.id,
+            password.user_id,
+        ),
+    )
+
+    return password

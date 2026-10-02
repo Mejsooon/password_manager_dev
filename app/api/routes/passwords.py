@@ -47,3 +47,15 @@ def get_password(password_id: int,current_user: User = Depends(get_current_user)
         username=password.username,
         password=password.password,
     )
+
+@router.put("/{password_id}",response_model=PasswordDetailResponse)
+def update_password(password_id: int,password_data: PasswordCreate,current_user: User = Depends(get_current_user)):
+
+    password = password_service.update_password(current_user=current_user, password_id=password_id, password_data=password_data)
+
+    return PasswordDetailResponse(
+        id=password.id,
+        name=password.name,
+        username=password.username,
+        password=password_data.password,
+    )
