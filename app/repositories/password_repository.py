@@ -58,3 +58,9 @@ def update(password: Password) -> Password:
     )
 
     return password
+
+
+def delete_by_id(password_id: int, user_id: int) -> bool:
+    execute("DELETE FROM passwords WHERE id = %s AND user_id = %s",(password_id, user_id))
+
+    return True
