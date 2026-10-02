@@ -1,5 +1,5 @@
-from fastapi import HTTPAuthorizationCredentials, HTTPBearer, Depends
-
+from fastapi import Depends
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from app.core.exceptions import InvalidTokenError
 from app.core.security import decode_access_token
 from app.models.models import User

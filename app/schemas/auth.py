@@ -14,3 +14,8 @@ class UserLogin(BaseModel):
 class UserResponse(BaseModel):
     id: int
     username: str
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
