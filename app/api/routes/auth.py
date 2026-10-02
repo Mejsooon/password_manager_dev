@@ -16,17 +16,11 @@ def register(user_data: UserCreate):
 
 @router.post("/login", response_model=TokenResponse)
 def login(credentials: UserLogin):
-    user = auth_service.authenticate(
-        username=credentials.username,
-        password=credentials.password,
-    )
+    user = auth_service.authenticate(username=credentials.username, password=credentials.password)
 
     access_token = auth_service.create_token(user.id)
 
-    return TokenResponse(
-        access_token=access_token,
-        token_type="bearer",
-    )
+    return TokenResponse(access_token=access_token, token_type="bearer")
 
 
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
