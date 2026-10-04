@@ -41,3 +41,13 @@ app = create_app()
 @app.get("/", tags=["root"])
 def root():
     return {"message": "Password Manager is working"}
+
+# nginx headers test
+@app.get("/debug/headers")
+def debug_headers(request: Request):
+    return {
+        "host": request.headers.get("host"),
+        "x-real-ip": request.headers.get("x-real-ip"),
+        "x-forwarded-for": request.headers.get("x-forwarded-for"),
+        "x-forwarded-proto": request.headers.get("x-forwarded-proto"),
+    }
